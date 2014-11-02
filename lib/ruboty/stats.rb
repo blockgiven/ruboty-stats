@@ -11,7 +11,8 @@ module Ruboty
         if perform?(handler, message)
           action_name = "#{handler.class.name}##{name}"
           Ruboty::Stats.stats(handler.robot)[action_name] ||= []
-          Ruboty::Stats.stats(handler.robot)[action_name] << {body: message.body, time: Time.now}
+          stats = {from: message.from, body: message.body, time: Time.now}
+          Ruboty::Stats.stats(handler.robot)[action_name] << stats
         end
 
         super
